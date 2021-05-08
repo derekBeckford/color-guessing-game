@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Color Guessing Game</title>
+</head>
+<body>
+    <h1>Color Guessing Game</h1>
+    <button type="button" onclick="runGame()">Start Game</button>
+
+    <script>
+        const COLORS_ARRAY = ['gold', 'gray', 'green', 'magenta', 'orange', 'red', 'white', 'yellow', 'teal', 'blue']
+
+        function runGame() {
+            let guess = ""
+            let correct = false
+            let numTries = 0
+            const targetIndex = Math.floor(Math.random() * (COLORS_ARRAY.length - 1));
+            const target = COLORS_ARRAY[targetIndex]
+            
+            console.log(target);
+        
+            do {
+                guess = prompt('I am thinking of one of these colors:\n\n' + COLORS_ARRAY.join(', ') + '\n\n' + 'What color am I thinking of?\n')
+                if (guess === null){
+                    alert('Aww, you dont wanna play?')
+                    return;
+                }
+                numTries++;
+                
+                correct = checkGuess(guess, target, numTries);
+
+                
+
+            } while (!correct);
+            
+            }
+        
+
+        function checkGuess(guess, target, numTries){
+            let correct = false
+
+            if (COLORS_ARRAY.indexOf(guess) === -1){
+                alert("Don't be sneaky, that's not in my array. Try again.")
+            } else if (COLORS_ARRAY.indexOf(guess) < COLORS_ARRAY.indexOf(target)) {
+                alert ("Your guess is alphabetically lower mine. Try again.")
+            } else if (COLORS_ARRAY.indexOf(guess) > COLORS_ARRAY.indexOf(target)) {
+                alert ("Your guess is higher alphabetically higher than mine. Try again.")
+            } else {(COLORS_ARRAY.indexOf(guess) === COLORS_ARRAY.indexOf(target))
+                alert('You got me! Congrats! It took you ' + numTries +' guesses to finish the game!\n\n Press OK to make the background color ' + guess)
+                document.body.style.background = guess;
+                correct = true 
+            }
+
+            return correct;
+        }
+
+
+        
+</script>
+</body>
+</html>
